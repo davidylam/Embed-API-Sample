@@ -17,11 +17,47 @@ namespace EmbedAPISample
         private static string resourceUrl = "https://analysis.windows.net/powerbi/api";
         private static string apiUrl = "https://api.powerbi.com/";
 
-        private static string tenantId = "<ENTER TENANT ID>";
-        private static Guid groupId = Guid.Parse("<ENTER GROUP/WORKSPACE ID>");
-        
-        private static Guid reportId = Guid.Parse("<ENTER REPORT ID>");
-        private static Guid datasetId = Guid.Parse("<ENTER DATASET ID>");
+        private static string tenantId = "c25fc350-5f5e-400c-9a8a-089b28b79eae";
+        private static Guid groupId = Guid.Parse("7ce79c4c-3d1c-4ece-84c3-9ed5d469f694");
+
+        //rls
+        private static Guid reportId = Guid.Parse("95c491aa-b543-40f1-acee-a07ced16754a");
+        private static Guid datasetId = Guid.Parse("69c42b79-ed2b-4b1a-af2d-a45754263699");
+
+        //Team
+        //private static Guid reportId = Guid.Parse("7147637d-d4f6-4df0-b5a0-ee07eb81e257");
+        //private static Guid datasetId = Guid.Parse("4e4f90c3-8732-42b5-b49e-27359cf0eb21");
+
+        /*
+         * If in Power BI it has Manage Security Role:
+         * set Line 14 to true
+         * username must be in the table
+         * Not sure if username column must exist? to match in .Net with dataset
+         * 
+         * *** DATASETS ***
+                ed1f596d-d222-49b3-a636-30e1d8672aa8 | Table
+                4528dd07-06e9-4ac6-b62a-614b3e3c7d3b | Dept
+                5ea6b3f3-bb3e-4552-a3e2-8e2327179e00 | TestSecurity
+                4e4f90c3-8732-42b5-b49e-27359cf0eb21 | NoUserNameInVisualTestSecurity
+                05377481-d684-4d4e-9e61-0c99b241d74d | TeamSports
+                90e767a6-5f06-4fac-b617-a1638d8dfb5f | TeamSports2
+                9e28ef8e-a20e-4fd1-b9bb-19b031995046 | rls
+                *** REPORTS ***
+                fca7e42f-53c6-4b46-a9f7-ab515a8cf06f | TestPage | DatasetID = ed1f596d-d222-49b3-a636-30e1d8672aa8
+                149da1c1-f333-42b1-8d83-294686fd072f | Dept | DatasetID = 4528dd07-06e9-4ac6-b62a-614b3e3c7d3b
+                558226e6-9b02-4766-8275-dc177022ea8b | TestSecurity | DatasetID = 5ea6b3f3-bb3e-4552-a3e2-8e2327179e00
+                17d0e728-6608-4e50-9ed2-25968fefa30c | NoUserNameInVisualTestSecurity | DatasetID = 4e4f90c3-8732-42b5-b49e-27359cf0eb21
+                2930829a-6e45-492a-9415-a6ca8d8862bb | TeamSports | DatasetID = 05377481-d684-4d4e-9e61-0c99b241d74d
+                7147637d-d4f6-4df0-b5a0-ee07eb81e257 | TeamSports2 | DatasetID = 90e767a6-5f06-4fac-b617-a1638d8dfb5f
+                966559ea-5d59-4b20-a3cc-25253f032f99 | rls | DatasetID = 9e28ef8e-a20e-4fd1-b9bb-19b031995046
+                *** DASHBOARDS ***
+                74ba3ce8-6361-4a88-9f96-2b3bea7aef99 | TestSecurity.pbix
+                2587fd0f-f2ab-4513-bf84-b40bf1336c80 | NoUserNameInVisualTestSecurity.pbix
+                f2b29248-8c3a-4ba2-8e84-5b4e0d43b984 | TeamSports.pbix
+                efb886a0-445e-4424-a439-801fc160cc8c | TeamSports2.pbix
+                db29aeaf-d512-4ad6-a425-3453c1529062 | rls.pbix
+         * 
+         * */
 
         // **** Update the Client ID and Secret within Secrets.cs ****
 
@@ -70,10 +106,10 @@ namespace EmbedAPISample
                         //var tokenResponse = await client.Reports.GenerateTokenInGroupAsync("groupId", "reportId", 
                         //    generateTokenRequestParameters);
 
-                        var rls = new EffectiveIdentity(username: "<ENTER USERNAME>", new List<string> { datasetId.ToString() });
+                        var rls = new EffectiveIdentity(username: "david910219@majesco.com", new List<string> { datasetId.ToString() });
 
                         var rolesList = new List<string>();
-                        rolesList.Add("<ENTER ROLE>");
+                        rolesList.Add("user");
                         rls.Roles = rolesList;
 
                         embedToken = client.Reports.GenerateTokenInGroup(groupId, reportId, 
