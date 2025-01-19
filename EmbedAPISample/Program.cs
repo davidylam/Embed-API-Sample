@@ -106,7 +106,7 @@ namespace EmbedAPISample
                         //var tokenResponse = await client.Reports.GenerateTokenInGroupAsync("groupId", "reportId", 
                         //    generateTokenRequestParameters);
 
-                        var rls = new EffectiveIdentity(username: "david910219@majesco.com", null, new List<string> { datasetId.ToString() });
+                        var rls = new EffectiveIdentity(username: "amy1234@majesco.com", null, new List<string> { datasetId.ToString() });
 
                         var rolesList = new List<string>();
                         rolesList.Add("user");
